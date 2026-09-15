@@ -7,13 +7,13 @@
 // These IDs should already exist in index.html.
 
 // TODO: Select the main todo list container
-
+const list = document.querySelector('#todo-list');
 // TODO: Select the output area for text and messages
-
+const output = document.querySelector('#output');
 // TODO: Select the Run Demo button
-
+const btnRun = document.querySelector('#btn-run');
 // TODO: Select the Clear button
-
+const btnClear = document.querySelector('#btn-clear');
 // --------------------------------------------------
 // STEP 2: Variables and template strings
 // --------------------------------------------------
