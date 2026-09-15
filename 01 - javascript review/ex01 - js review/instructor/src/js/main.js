@@ -3,16 +3,13 @@
 // --------------------------------------------------
 // STEP 1: Select DOM elements ONCE
 // --------------------------------------------------
-// Grab references to the main UI elements.
-// These IDs should already exist in index.html.
+const runBtn     = document.querySelector('#btn-run');
+const clearBtn   = document.querySelector('#btn-clear');
+const demoOutput = document.querySelector('#output');
 
-// TODO: Select the main todo list container
-
-// TODO: Select the output area for text and messages
-
-// TODO: Select the Run Demo button
-
-// TODO: Select the Clear button
+const todoAddBtn = document.querySelector('#btn-add');
+const todoInput  = document.querySelector('#txt-task');
+const todoList   - document.querySelector('#btn-run');
 
 // --------------------------------------------------
 // STEP 2: Variables and template strings
