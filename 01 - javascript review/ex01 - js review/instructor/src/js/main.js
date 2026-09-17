@@ -18,10 +18,14 @@ const todoList   = document.querySelector('#btn-run');
 // them using a template string.
 
 // TODO: Create a constant named course
-
 // TODO: Create a variable named topic
+const course = 'SDEV2150';
+const topic  = 'JS review';
 
 // TODO: Use a template string to display both values
+demoOutput.innerHTML = `<p>Course: ${course} | Topic: ${topic}</p>`
+
+
 
 // --------------------------------------------------
 // STEP 3: Functions and return values
