@@ -26,7 +26,6 @@ const topic  = 'JS review';
 demoOutput.innerHTML = `<p>Course: ${course} | Topic: ${topic}</p>`
 
 
-
 // --------------------------------------------------
 // STEP 3: Functions and return values
 // --------------------------------------------------
@@ -34,10 +33,17 @@ demoOutput.innerHTML = `<p>Course: ${course} | Topic: ${topic}</p>`
 // another function that formats a label/value pair.
 
 // TODO: Create a function add(a, b)
+function add(a, b) {
+  return a + b;
+}
 
 // TODO: Create an arrow function formatResult(label, value)
+const formatResult = (label, value) => {
+  return `${label}: ${value}`
+}
 
 // TODO: Call the functions and display the result
+output.innerHTML += `<p>${formatResult('2 + 3', add(2, 3))}</p>`
 
 // --------------------------------------------------
 // STEP 4: Arrays, objects, and iteration
