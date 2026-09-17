@@ -9,7 +9,7 @@ const demoOutput = document.querySelector('#output');
 
 const todoAddBtn = document.querySelector('#btn-add');
 const todoInput  = document.querySelector('#txt-task');
-const todoList   - document.querySelector('#btn-run');
+const todoList   = document.querySelector('#btn-run');
 
 // --------------------------------------------------
 // STEP 2: Variables and template strings
