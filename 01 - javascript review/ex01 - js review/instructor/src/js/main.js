@@ -3,8 +3,8 @@
 // --------------------------------------------------
 // STEP 1: Select DOM elements ONCE
 // --------------------------------------------------
-const runBtn     = document.querySelector('#btn-run');
-const clearBtn   = document.querySelector('#btn-clear');
+const btnRun     = document.querySelector('#btn-run');
+const btnClear   = document.querySelector('#btn-clear');
 const demoOutput = document.querySelector('#output');
 
 const todoAddBtn = document.querySelector('#btn-add');
@@ -149,10 +149,43 @@ addMessage(
 // - Add a few messages
 // - Render the task list
 
+function runDemo() {
+  // If I want to update a display container, my first step
+  // should always be clearing out whatever is already there.
+  // That way, I don't risk accidentally appending to pre-existing HTML
+  // instead of overwriting it!
+  output.innerHTML = '';
+
+  // the glory of modular logic:
+  // now I have a write-once,-use-infinitely function to append text to the demo output box!
+  addMessage('Running demo...');
+  addMessage(formatResult('5 + 8', add(5, 8)));
+  list.innerHTML = renderTaskList(tasks);
+}
+
 // TODO: Create a function clearUI()
 // - Clear both output and todo list containers
+function clearUI() {
+  // when clearing/nuking/resetting UI, it's totally sensible to treat the HTML as raw text.
+  // you don't really care about the existing inner node structure if you're just wiping it.
+  demoOutput.innerHTML = '';
+  todoList.innerHTML   = ''
+}
 
 // TODO: Add click listeners for btnRun and btnClear
+btnRun.addEventListener('click', runDemo);
+btnClear.addEventListener('click', clearUI);
+
+/*
+ ^ note the overall order in this file so far:
+   A) define DOM elements
+   B) set up helper functions
+   C) attach functions to event listeners
+  
+  This makes things really readable / conceptually accessible for someone else
+  stepping into this code! (Pretend for a moment it's not littered w/ explanatory comments.)
+*/
+
 
 // --------------------------------------------------
 // STEP 8: Mini extension – Adding tasks
