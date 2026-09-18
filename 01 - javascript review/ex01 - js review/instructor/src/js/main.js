@@ -126,8 +126,18 @@ todoList.innerHTML = renderTaskList(tasks);
 // - Create a <p> element
 // - Set its textContent
 // - Append it to the output element
+function addMessage(msg) {
+  const p = document.createElement('p');
+  p.textContent = msg;
+  demoOutput.appendChild(p);
+}
 
 // TODO: Test the addMessage function
+addMessage(
+  'This message was created with document.createElement,then added to the DOM by calling .appendChild on the demo output element.'
+  ); // rather than writing text straight into .innerHTML or .textContent.
+     // This approach explicitly treats the DOM as a node tree,
+     // while the innerHTML/textContent injection approach treats HTML as text data.
 
 // --------------------------------------------------
 // STEP 7: Events – connect UI to behavior
