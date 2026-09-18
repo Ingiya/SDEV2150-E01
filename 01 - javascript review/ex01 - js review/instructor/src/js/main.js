@@ -191,6 +191,19 @@ btnClear.addEventListener('click', clearUI);
 // STEP 8: Mini extension – Adding tasks
 // --------------------------------------------------
 
+todoAddBtn.addEventListener(
+  'click',
+  () => { // anonymous callback function, rather than a stored named one like runDemo
+    const title = todoInput.value.trim(); // always trim whitespace, sanitise inputs, etc.
+    if (!title) return; // if-return is often better than if-else, if you don't want subsequent code to execute
+  
+    tasks.push({ title, done: false });     // don't need to title: title, if the property name will be the same as the variable (in JS)
+    todoList.innerHTML  = renderTaskList(tasks); // we updated data, so we re-render -> remember this! it's the core loop of responsive UI.
+    todoInput.value = ''; // for form/input UI, always reset the input after submitting (successful submits, or any submits, depending on your case)
+  }
+)
+
+
 // --------------------------------------------------
 // STEP 9: Student Exercise
 // --------------------------------------------------
