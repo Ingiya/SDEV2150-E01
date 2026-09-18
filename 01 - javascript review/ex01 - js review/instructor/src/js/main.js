@@ -9,7 +9,7 @@ const demoOutput = document.querySelector('#output');
 
 const todoAddBtn = document.querySelector('#btn-add');
 const todoInput  = document.querySelector('#txt-task');
-const todoList   = document.querySelector('#btn-run');
+const todoList   = document.querySelector('#todo-list'); // fixed!
 
 // --------------------------------------------------
 // STEP 2: Variables and template strings
@@ -102,8 +102,20 @@ demoOutput.textContent = `Completed: ${completedCount} tasks of ${tasks.length}.
 // - Loop over items
 // - Add <li> elements with a class of 'done' or 'todo'
 // - Close the list and return the string
+function renderTaskList(items) {
+  // I should open the list, add indiv. list items, then close the list
+  let html = '<ul>';
+  for (const item of items) {
+    const status = item.done ? 'done' : 'todo'; // ternary, replaces if/else -> 
+                                                // (condition ? resultIfTrue : resultIfFalse)
+    html += `<li class="${status}">${item.title}</li>`
+  }
+  html += '</ul>';
+  return html;
+}
 
 // TODO: Render the task list inside the list container
+todoList.innerHTML = renderTaskList(tasks);
 
 // --------------------------------------------------
 // STEP 6: DOM manipulation with createElement
