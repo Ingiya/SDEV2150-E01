@@ -43,7 +43,7 @@ const formatResult = (label, value) => {
 }
 
 // TODO: Call the functions and display the result
-output.innerHTML += `<p>${formatResult('2 + 3', add(2, 3))}</p>`
+demoOutput.innerHTML += `<p>${formatResult('2 + 3', add(2, 3))}</p>`
 
 // --------------------------------------------------
 // STEP 4: Arrays, objects, and iteration
@@ -51,12 +51,45 @@ output.innerHTML += `<p>${formatResult('2 + 3', add(2, 3))}</p>`
 // Create an array of task objects and count
 // how many are marked as done.
 
+/*
+  NOTE: about storing an (e.g.) array in a const:
+  -> Arrays are mutable types, meaning I can change what's in them.
+     By writing e.g. "const arr = []", all I'm doing is saying,
+     "The variable {arr} points to *that specific array*."
+     Because the array is a mutable data type, I can still
+     do stuff with it. What I *can't* do is reassign anything else to
+     that {arr} variable.
+*/
+
 // TODO: Create an array named tasks
 // Each task should have: title (string), done (boolean)
+const tasks = [
+  { title: 'Install dependencies', done: true },
+  // null, // uncomment this to observe how for-loop iteration
+           // can result in partially constructed data,
+           // while map/filter are all-or-nothing (good: only modifies/creates data if no error)
+  { title: 'Run dev server', done: true },
+  { title: 'Complete the demo', done: false },
+]
 
 // TODO: Use a loop to count completed tasks
+let completedCount = 0;
+for (const task of tasks) {
+  if (task.done) {
+    completedCount++
+    console.log(completedCount);
+  };
+}
+
+// or do it like a pro: newArr = Arr.filter(element => (conditionalExpression))
+//                   -> will create newArr with only Arr elements for which conditionalExpression is true!
+//                   -> is "all-or-nothing", i.e. if an exception is thrown during the process, newArr is not created
+// here, I don't bother storing the new array because I just want its .length right away.
+completedCount = tasks.filter(task => task.done === true).length;
 
 // TODO: Display: "Completed: X of Y"
+demoOutput.textContent = `Completed: ${completedCount} tasks of ${tasks.length}.`
+
 
 // --------------------------------------------------
 // STEP 5: Problem solving – build HTML from data
