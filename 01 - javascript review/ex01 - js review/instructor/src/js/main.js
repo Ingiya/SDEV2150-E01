@@ -109,6 +109,7 @@ function renderTaskList(items) {
     const status = item.done ? 'done' : 'todo'; // ternary, replaces if/else -> 
                                                 // (condition ? resultIfTrue : resultIfFalse)
     html += `<li class="${status}">${item.title}</li>`
+    // instead of this for loop, this could also be tasks.map() !
   }
   html += '</ul>';
   return html;
@@ -160,7 +161,7 @@ function runDemo() {
   // now I have a write-once,-use-infinitely function to append text to the demo output box!
   addMessage('Running demo...');
   addMessage(formatResult('5 + 8', add(5, 8)));
-  list.innerHTML = renderTaskList(tasks);
+  todoList.innerHTML = renderTaskList(tasks);
 }
 
 // TODO: Create a function clearUI()
