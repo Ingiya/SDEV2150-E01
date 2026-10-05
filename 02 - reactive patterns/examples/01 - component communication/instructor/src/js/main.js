@@ -4,7 +4,15 @@ import './components/resource-filters.js';
 import './components/resource-results.js';
 import './components/resource-details.js';
 
-// Sample data for resources
+
+
+/* Here we'll place our logic layer, or "coordinator"/"mail person" so we can handle
+   listening for our custom event. Note how that happens *outside* of each of those components.
+
+  We'll listen for the emitted click event, and pass on the data from it to the detail component.
+*/
+
+
 const resultData = [
   {
     id: 'tutoring',
@@ -52,6 +60,10 @@ const resultData = [
   },
 ];
 
+
 // TODO: Pass data to resource-results component
+const resultsComponent = document.querySelector('resource-results');
+resultsComponent.results = resultData; // pass data to ResourceResults.results setter, trigger render
+
 
 // TODO: Listen for resourceSelected event and update resource-details component
