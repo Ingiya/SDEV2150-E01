@@ -16,9 +16,15 @@ template.innerHTML = `
     </div>
   </section>`;
 
+
 class ResourceResults extends HTMLElement {
-  #results          = []; // one place to store the *full, unfiltered* dataset of results (already exists: #results)
-  #filters          = {}; // a place to store my filters
+  #results = [];  // one place to store the *full, unfiltered* dataset of results (already exists: #results)
+  #filters = {
+    searchQuery: '',
+    category: 'all',
+    openNow: false,
+    virtual: false,
+  }; // a place to store my filters
 
   #_filteredResults = []; // another place to store *filtered* dataset
   // underscore in programming: usually communicates "don't use this directly"
@@ -26,14 +32,26 @@ class ResourceResults extends HTMLElement {
   // *but* we're producing the filtered results array internally
 
   set results(data) {
-    this.#results = data;
+    /* this.#results is now just a data container for *all* results; we don't mutate it (would result in
+      the permanent loss of whatever is filtered). 
+
+      We want to render exclusively from filtered results now, but we don't really need to overcomplicate this.
+      I only write to the results array when I'm doing my initial data load of possible results, so when I write to that,
+      I may as well write that as the initial state of _filteredResults too (which we'll be rendering from).
+
+      After all, we want nothing filtered initially, so everything shows.
+    
+      */
+    this.#results          = data;
+    this.#_filteredResults = [...data]; // don't reference the same value/array; copy its elements into a new one instead
+
     this.render();
   }
+    
 
   set filters(filters) { // if I have a private array, I need a setter for it
-
-    // here goes some logic for applying filters. This might get beefy, so I should think about splitting that off into its own function
-   
+    this.#filters = filters;
+    this.#applyFilters();  // my actual logic for processing the filters payload will be complex, so I want it split into its own thing
     this.render() // whenever I apply new filters, I'll want to re-render
   }
 
@@ -46,6 +64,16 @@ class ResourceResults extends HTMLElement {
 
       - I need some method for actually applying the filters to the results
   */
+
+  #applyFilters() {
+    // placeholder for now
+
+    // this is called 'destructuring'; look it up if that's new to you!
+    //   tl;dr - lets me pull out properties of an obj by name into standalone variables
+    //           if I wanted, I could also only pull out select terms/properties
+    const { searchQuery, category, openNow, virtual } = this.#filters;
+  }
+
 
   constructor() {
     super();
@@ -89,10 +117,9 @@ class ResourceResults extends HTMLElement {
     const content = template.content.cloneNode(true)
     const listGroup = content.querySelector('.list-group');
 
-    // I'll have to change this to render from *filtered* dataset, not this.#results (the entire dataset)
-
-    if (this.#results.length) {
-      const resultsHTML = this.#results.map(
+    // Now that we're set up to render from #filteredResults instead, let's actually implement that:
+    if (this.#_filteredResults.length) {
+      const resultsHTML = this.#_filteredResults.map(
         result => `
         <button type="button" class="list-group-item list-group-item-action" data-id="${result.id}">
           <div class="d-flex w-100 justify-content-between">
