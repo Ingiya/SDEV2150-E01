@@ -81,7 +81,7 @@ class ResourceResults extends HTMLElement {
         // a) if we got searchQuery text, check it against result's title, summary, location
         //    Array.join('') turns e.g. [1, 2, 3] into "123" -> combine all array elements into one string (that I can then search)
         //    The argument passed to join is a separator; we don't care about that here. (e.g. [1, 2, 3].join("x") -> "1x2x3") 
-        const matchesSearchQuery = !q || [r.title, r.summary, r.location].join('').toLowerCase.includes(q);
+        const matchesSearchQuery = !q || [r.title, r.summary, r.location].join('').toLowerCase().includes(q);
         /*
             Empty strings are falsey so, the series of checkes here are:
             1) is searchbox empty/unused -> q is "" -> !q would be true -> return true, check passes
