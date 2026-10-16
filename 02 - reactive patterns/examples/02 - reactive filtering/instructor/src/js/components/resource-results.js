@@ -55,23 +55,30 @@ class ResourceResults extends HTMLElement {
     this.render() // whenever I apply new filters, I'll want to re-render
   }
 
-  /* 
-    how does this component need to change to receive & apply filters?
-     
-
-      - this also means I have to change how I render — I should always be rendering from filtered
-        dataset, not the 'reference copy' of all results/services
-
-      - I need some method for actually applying the filters to the results
-  */
-
   #applyFilters() {
-    // placeholder for now
-
     // this is called 'destructuring'; look it up if that's new to you!
     //   tl;dr - lets me pull out properties of an obj by name into standalone variables
     //           if I wanted, I could also only pull out select terms/properties
     const { searchQuery, category, openNow, virtual } = this.#filters;
+  
+    /* Let's plan out the logic that actually filters from the results array into the filtered array.
+
+        1. Anytime I'm taking string inputs, I should clean them up (-> trim searchQuery)
+           (The rest of the inputs are predefined strings, or booleans.)
+        
+        2. Actually filter from one array into the other. Let's practice Array.filter() :
+    */
+    
+    this.#_filteredResults = this.#results.filter(
+      // someArray.filter() creates a new array containing *only* elements that pass some condition/check inside this block.
+      // also, see main.js if you need a refresher on the shape of the result data.
+      (r) => {
+        // a) if we got searchQuery text, check it against result's title, summary, location
+        // b) if a category was selected, and it wasn't 'all', filter for only that category. if 'all' was selected, don't filter.
+        // c) if openNow was selected, check each result's openNow
+        // d) "  virtual "
+      }
+    )
   }
 
 
