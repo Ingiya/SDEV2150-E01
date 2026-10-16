@@ -74,9 +74,18 @@ class ResourceResults extends HTMLElement {
       // also, see main.js if you need a refresher on the shape of the result data.
       (r) => {
         // a) if we got searchQuery text, check it against result's title, summary, location
+        const matchesSearchQuery = true; // temporary hardcode
         // b) if a category was selected, and it wasn't 'all', filter for only that category. if 'all' was selected, don't filter.
+        const matchesCategory = true;
         // c) if openNow was selected, check each result's openNow
+        const matchesOpenNow = true;
         // d) "  virtual "
+        const matchesVirtual = true;
+
+        // each result must pass *all* the checks above in order to be included in the array.
+        // .filter() expression should return *one* true or false that decides whether element gets included in new array
+        // && - AND operator; everything chained with && must be true in order for the overall expression to be true
+        return matchesSearchQuery && matchesCategory && matchesOpenNow && matchesVirtual
       }
     )
   }
