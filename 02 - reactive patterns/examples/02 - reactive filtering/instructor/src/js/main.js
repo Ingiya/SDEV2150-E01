@@ -60,3 +60,12 @@ const detailsComponent = document.querySelector('resource-details');
 resultsComponent.addEventListener('resource-selected', (event) => {
   detailsComponent.resource = event.detail.result;
 });
+
+// in my logic layer here, I need to do the same thing I did between results<-->details:
+// -> listen for the custom event from filters component, and alter some data property on results component accordingly
+const filtersComponent = document.querySelector('resource-filters');
+filtersComponent.addEventListener('resource-filters-changed', (event) => {
+  resultsComponent.filters = event.detail;
+  // I also want to reset my details card when they are submitted!
+  detailsComponent.resource = null;
+});

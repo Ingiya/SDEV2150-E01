@@ -1,6 +1,6 @@
 const template = document.createElement('template');
 template.innerHTML = `
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <aside class="h-100">
     <div class="card h-100">
       <div class="card-header">

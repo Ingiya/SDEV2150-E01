@@ -5,7 +5,7 @@
   "scripts": {
     "build": "vite build src --outDir ../dist",
     "dev": "vite src",
-    "eslint": "eslint --stats js/*.js ",
+    "eslint": "eslint --stats src/js/**/*.js ",
     "start": "vite serve src"
   },
   "devDependencies": {

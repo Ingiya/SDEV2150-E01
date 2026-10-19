@@ -71,29 +71,59 @@ class ResourceResults extends HTMLElement {
     // 1. I look at the click in the Results card, and see if it came from a specific, valid result/row
     const button = event.target.closest('button[data-id]'); // looks at exactly what got clicked, starts going upstream till match
     if (button) {
+      /* Final touch: highlight selected element when clicked; this basically just means
+         toggling 'active' class on button (it's a bootstrap styling class).
+
+          Game plan: 
+           1) if there is any other currently active button, find it, and toggle it off
+           2) slap the 'active' class on the button to trigger bootstrap styling
+
+         This is an opportunity to see optional method chaining. Instead of:
+           
+           if (possibleItem) { possibleItem.doAThing() }
+         
+         I can do:
+
+           someCondition?.doAThing(); // the code after the question mark only executes if the prior term is truthy/non-null
+
+         Good/common example of this in webdev: *If* there's an array, check its length (trying to check .length of null errors)
+           possibleArray?.length
+        
+         Also super useful in cases where you're never using/firing that thing again, so having to write it twice or store it in 
+         a variable is pretty pointless anyway. Great for one-off checks/changes.
+      */
+
+      // 1. find any active button and toggle it off
+      this.shadowRoot.querySelector('button.active')?.classList.remove('active');
+      // try to get active button -> *if found* -> remove active from its class list
+
+      // 2. slap 'active' class on button ('safe' to do now since we're not duplicating any active states)
+      button.classList.add('active');
+
+
       const resultID = button.getAttribute('data-id');
       const result   = this.#results.find(result => result.id === resultID);
       // use the data-id attribute to find the corresponding object in the array (if any).
       // I don't want to parse values from HTML; I just want to go straight to the data source
       // as a consistent source of truth. Once again: operate on data, cascade consequences down into
       // 'display-only' UI.
+
+      // 2. I create a custom event w/ that row's data object as the paylod/message
+      //    docs: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/
+
+      const resultSelectedEvent = new CustomEvent(
+        'resource-selected', // *we* get to decide the event name,
+        {
+          detail:  { result }, // send matched data obj as event msg. don't pre-filter data, let receiver decide what's relevant
+          bubbles: true,       // if true, bubbles up the DOM till it finds a listener, incl. past shadow root
+                               // -> sender & receiever don't have to be directly wired together for listening to occus
+          composed: true,      // if true, events can cross shadow DOM boundary
+        }
+      );
+
+      // 3. I blast the event off
+      this.dispatchEvent(resultSelectedEvent);
     }
-
-    // 2. I create a custom event w/ that row's data object as the paylod/message
-    //    docs: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/
-
-    const resultSelectedEvent = new CustomEvent(
-      'resource-selected', // *we* get to decide the event name,
-      {
-        detail:  { result }, // send matched data obj as event msg. don't pre-filter data, let receiver decide what's relevant
-        bubbles: true,       // if true, bubbles up the DOM till it finds a listener, incl. past shadow root
-                             // -> sender & receiever don't have to be directly wired together for listening to occus
-        composed: true,      // if true, events can cross shadow DOM boundary
-      }
-    );
-
-    // 3. I blast the event off
-    this.dispatchEvent(resultSelectedEvent);
   }
 
   connectedCallback() { // <- when the component loads/attaches into the DOM...

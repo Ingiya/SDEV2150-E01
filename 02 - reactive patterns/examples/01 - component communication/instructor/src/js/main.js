@@ -67,3 +67,7 @@ resultsComponent.results = resultData; // pass data to ResourceResults.results s
 
 
 // TODO: Listen for resourceSelected event and update resource-details component
+const detailsComponent = document.querySelector('resource-details');
+resultsComponent.addEventListener('resource-selected', (event) => {
+  detailsComponent.resource = event.detail.result;
+});
