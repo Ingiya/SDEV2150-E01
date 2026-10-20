@@ -5,6 +5,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,6 +32,11 @@ function App() {
           Count is {count}
         </button>
       </section>
+
+      <Footer />
+      {/* If a component doesn't have other components / HTML elements nested inside it, it self-terminates ( /> )
+          Otherwise, we would e.g.  <VideoList> <Heading /> </VideoList> just like in HTML.
+      */}
 
       <div className="ticks"></div>
       <section id="next-steps">
