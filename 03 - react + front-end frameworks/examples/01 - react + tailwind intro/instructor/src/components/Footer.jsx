@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer({ viteLogo, reactLogo }) {
   
   // inside a component is just a JS function; comments can be written like this
   // right now this would be called a static component; it renders the same thing every time.

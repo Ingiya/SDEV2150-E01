@@ -33,12 +33,13 @@ function App() {
         </button>
       </section>
 
-      <Footer />
+      <div className="ticks"></div>
+
+      <Footer viteLogo={viteLogo} reactLogo={reactLogo} />
       {/* If a component doesn't have other components / HTML elements nested inside it, it self-terminates ( /> )
           Otherwise, we would e.g.  <VideoList> <Heading /> </VideoList> just like in HTML.
       */}
 
-      <div className="ticks"></div>
 
      
 
