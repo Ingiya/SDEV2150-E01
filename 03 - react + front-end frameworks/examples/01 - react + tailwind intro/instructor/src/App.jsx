@@ -1,51 +1,34 @@
-import { useState } from 'react'
-
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
-import Footer from './components/Footer'
+import Header  from './components/Header'
+import Filters from './components/Filters'
+import Results from './components/Results'
+import Details from './components/Details'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  // every React component must return one single node.
+  // instead of wrapping stuff in empty divs to achieve this purpose (which is bloat and might mess up styling),
+  // we can use the fragment, a placeholder empty node in React:
+  //   <>   </>
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="p-6">
+      <Header />
+
+      {/* breakpoints, just like in bootstrap: a window wider than "lg" (1024px) will create 3 columns; anything below, 1 column */}
+      <div className="flex flex-col lg:grid lg:grid-cols-3 lg:items-stretch gap-x-6">
+        <div className="w-full">
+          <Filters />
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+        <div className="w-full">
+          <Results />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <Footer viteLogo={viteLogo} reactLogo={reactLogo} />
-      {/* If a component doesn't have other components / HTML elements nested inside it, it self-terminates ( /> )
-          Otherwise, we would e.g.  <VideoList> <Heading /> </VideoList> just like in HTML.
-      */}
-
-
-     
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <div className="w-full">
+          <Details />
+        </div>
+      </div>
+    </div>
   )
 }
 
