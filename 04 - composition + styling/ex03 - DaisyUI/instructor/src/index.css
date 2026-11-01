@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+  /* needs to be set to play with the fancier themes; daisyUI doesn't enable them by default to stay lean
+    themes list: https://daisyui.com/docs/themes/
+
+    There's also a theme maker; it's the most useful way to learn about the structure of a DaisyUI theme
+    and all the relative colour styling etc. it uses:
+    https://daisyui.com/theme-generator
+  
+  */
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+ 
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

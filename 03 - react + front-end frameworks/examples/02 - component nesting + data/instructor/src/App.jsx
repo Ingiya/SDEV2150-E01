@@ -4,6 +4,9 @@ import Results from './components/Results';
 import Details from './components/Details';
 import './App.css';
 
+import { resources } from './data/resources';
+
+
 function App() {
   return (
     <>
@@ -13,7 +16,7 @@ function App() {
           <Filters />
         </div>
         <div className="w-full">
-          <Results />
+          <Results resources={resources} />
         </div>
         <div className="w-full">
           <Details />
