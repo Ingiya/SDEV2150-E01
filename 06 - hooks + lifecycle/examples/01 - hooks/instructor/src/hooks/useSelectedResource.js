@@ -21,12 +21,39 @@ import { useState } from 'react';
 
 export default function useSelectedResource() {
 
-  const [selectedResource, setSelectedResource] = useState(null);
-
   /* sessionStorage is a key-value store, built in to web behaviour (no need to import anything). 
-   Below, I'm defining which 'key' I'll be writing the resource value to.
-*/
+    Below, I'm defining which 'key' I'll be writing the resource value to.
+  */
   const STORAGE_KEY = 'selectedResource'; // variables in ALL_CAPS usually mean they're constants (hardcoded)
+
+  /* Instead of a hardcoded default value, we'll read initial state from sessionStorage.
+      
+      Rather than just delivering that value as a one-off, we'll write a callback function
+      to also a bit of safety-checking when reading the value (bc e.g. sessionStorage isn't protected
+      the same way React state is; logic elsewhere could overwrite the value at that same key).
+  */
+  const [selectedResource, setSelectedResource] = useState(
+    () => { // this is a callback function; the idea is, it's what *should* run when needed,
+            // *not* a function that is being called immediately. also known as "lazy initialisation"
+            // this callback function will not run until useState() fires and looks for that initial value, which we'll return
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+
+      if (stored) {
+        // I'm try{}ing this because if we try to access a key that doesn't exist, it will throw an error
+        try {
+          return JSON.parse(stored);
+        } catch {
+					// I know I don't need to write "return null"; I can just write "return".
+					// Here, I'm choosing to be explicit, because I'm deliberately returning that value,
+					// rather than just using 'return' as a way to escape scope of logic.
+          return null;
+        }
+      }
+
+      return null; // I'm using if-return instead of if-else.
+    }
+  );
+
 
   // I'm not writing the data updating logic 'nakedly' in the root scope of this hook,
   // because it would fire every time the hook is loaded, rather than specifically when I want it to.
