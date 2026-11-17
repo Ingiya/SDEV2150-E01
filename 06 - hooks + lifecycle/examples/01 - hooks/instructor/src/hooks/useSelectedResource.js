@@ -1,5 +1,15 @@
 import { useState } from 'react';
 
+/* This will be a custom hook built *around* useState.
+
+   We're going to change a stateful variable, *but also*
+   read/write changes from/to persistent browser session storage.
+
+   This is why we're using a custom hook in the first place -- 
+   we want to work with state, but also do related i/o with
+   an external system.
+*/
+
 export default function useSelectedResource() {
 
   const [selectedResource, setSelectedResource] = useState(null);
@@ -12,6 +22,15 @@ export default function useSelectedResource() {
   // (i.e. selected resource, filters, student services data) and just renders it; it doesn't need to (and shouldn't)
   // hold standalone logic to also save any data to browser session storage.
 
-  return [selectedResource, setSelectedResource]
+  // I'm not writing the data updating logic 'nakedly' in the root scope of this hook,
+  // because it would fire every time the hook is loaded, rather than specifically when I want it to.
+  function updateSelectedResource(resource) {
+    // 1. change the value in React state
+    setSelectedResource(resource);
+
+    // 2. also write the new value to session storage in the browser
+  }
+
+  return [selectedResource, updateSelectedResource]
 
 }
