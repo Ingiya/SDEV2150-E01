@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function useSelectedResource() {
+
+  const [selectedResource, setSelectedResource] = useState(null);
 
   // I want clicking a different results row to do the same thing as before (change info shown in Details card)
   // *but also* write to session storage.
@@ -7,5 +11,7 @@ export default function useSelectedResource() {
   // what the selected resource actually is, or whether a new one was clicked - ideally, Results.jsx just gets data
   // (i.e. selected resource, filters, student services data) and just renders it; it doesn't need to (and shouldn't)
   // hold standalone logic to also save any data to browser session storage.
+
+  return [selectedResource, setSelectedResource]
 
 }

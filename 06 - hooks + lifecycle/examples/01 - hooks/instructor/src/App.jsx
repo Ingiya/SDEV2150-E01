@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import useSelectedResource from './hooks/useSelectedResource';
+
 import Header from './components/Header';
 import Filters from './components/Filters';
 import Results from './components/Results';
@@ -10,8 +12,14 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [openNowOnly, setOpenNowOnly] = useState(false);
-  const [selectedResource, setSelectedResource] = useState(null);
   const [virtualOnly, setVirtualOnly] = useState(false);
+
+  // note: I renamed "setSelectedResource" from the hook,
+  // because as a sanity/consistency convention, I only want to use "set..." for
+  // state that is local to a component/hook, so someone seeing "set..." immediately knows
+  // that state lives in the layer they're looking at.
+  const [selectedResource, updateSelectedResource] = useSelectedResource(null);
+
 
   return (
     <PageLayout header={<Header tagline="Find the right resources, right away" />}>
@@ -30,7 +38,11 @@ function App() {
       <section className="md:col-span-2 lg:col-span-1">
         <Results
           selectedResource={selectedResource}
-          onSelectResource={setSelectedResource}
+          // note: I renamed "setSelectedResource" from the hook,
+          // because as a sanity/consistency convention, I only want to use "set..." for
+          // state that is local to a component/hook, so someone seeing "set..." immediately knows
+          // that state lives in the layer they're looking at.
+          onSelectResource={updateSelectedResource}
           searchTerm={searchTerm}
           selectedCategories={selectedCategories}
           openNowOnly={openNowOnly}

@@ -1,5 +1,6 @@
-import ResultsItem from './ResultsItem';
 import { resources } from '../data/resources';
+
+import ResultsItem from './ResultsItem';
 import Card from './ui/Card';
 
 export default function Results({ selectedResource, searchTerm, selectedCategories, onSelectResource, openNowOnly, virtualOnly }) {
