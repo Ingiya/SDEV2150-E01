@@ -82,3 +82,15 @@ export default function useSelectedResource() {
   return [selectedResource, updateSelectedResource]
 
 }
+
+/* NOTES: 
+
+a) you can use localStorage (persists across browser sessions) the same way you would use sessionStorage
+
+b) remember, the "ideal form" of a React component is just something that takes in data and renders out UI (returns JSX), i.e. no or minimal internal logic.
+   so the other win here is, we've abstracted out behaviour that talks to an external system (browser storage is external to the scope of our app, jsut like a REST API
+   or a db would be).
+
+c) imagine if this hook, instead of writing to browser storage, wrote to a db or POSTed to a REST API instead
+
+*/
